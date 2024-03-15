@@ -1,12 +1,10 @@
 import { 
-  PAGE_TIMELINE, 
   HOURS_IN_DAY, 
   SECONDS_IN_HOUR,
   MINUTES_IN_HOUR,
   SECONDS_IN_MINUTE,
   MILLISECONDS_IN_SECOND
    } from './constants'
-import { isPageValid } from './validators'
 import {isNull} from './validators'
 
 
@@ -18,18 +16,6 @@ export function formatSeconds(seconds){
   const utc = date.toUTCString()
 
   return utc.substring(utc.indexOf(':') -2, utc.indexOf(':') + 6)
-}
-
-
-export function normalizePageHash() {
-  const page = window.location.hash.slice(1)
-  if (isPageValid(page)) {
-    return page
-  }
-
-  window.location.hash = PAGE_TIMELINE
-
-  return PAGE_TIMELINE
 }
 
 export function generateActivities() {

@@ -7,13 +7,12 @@ import {
   generateActivities,
   generatePeriodSelectOptions
 } from './functions'
-import { currentPage, timelineRef} from './router'
+import { currentPage, timelineRef } from './router'
 import TheHeader from './components/TheHeader.vue'
 import TheNav from './components/TheNav.vue'
 import TheTimeline from './pages/TheTimeline.vue'
 import TheActivities from './pages/TheActivities.vue'
 import TheProgress from './pages/TheProgress.vue'
-
 
 const activities = ref(generateActivities())
 
@@ -58,7 +57,7 @@ provide('timelineItems', timelineItems.value)
 </script>
 
 <template>
-  <TheHeader/>
+  <TheHeader />
 
   <main class="flex flex-grow flex-col">
     <TheTimeline
