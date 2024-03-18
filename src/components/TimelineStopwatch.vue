@@ -9,9 +9,10 @@ import {
 } from '@/constants'
 import { formatSeconds } from '@/functions'
 import { isTimelineItemValid } from '@/validators'
+import { updateTimelineItemActivitySecondsKey } from '../keys'
 import BaseButton from './BaseButton.vue'
 
-const updateTimelineItemActivitySeconds = inject('updateTimelineItemActivitySeconds')
+const updateTimelineItemActivitySeconds = inject(updateTimelineItemActivitySecondsKey)
 
 const props = defineProps({
   timelineItem: {
