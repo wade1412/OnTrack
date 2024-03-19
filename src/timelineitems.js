@@ -4,34 +4,35 @@ import { HOURS_IN_DAY } from './constants'
 
 export const timelineItems = ref(generateTimelineItems())
 
-export function setTimelineItemActivity(timelineItem, activityId) {
-  timelineItem.activityId = activityId
-}
-
-export function updateTimelineItemActivitySeconds(timelineItem, activitySeconds) {
-  timelineItem.activitySeconds = activitySeconds
+export function updateTimelineItem(timelineItem, fields) {
+  return Object.assign(timelineItem, fields)
 }
 
 export function resetTimelineItemActivities(activity) {
-  timelineItems.value.forEach((timelineItem) => {
-    if (timelineItem.acvitityId === activity.id) {
-      timelineItem.acvitityId = null
-      timelineItem.activitySeconds = 0
-    }
-  })
+  timelineItems.value
+    .filter((timelineItem) => hasActivity(timelineItem,activity))
+    .forEach((timelineItem) =>
+      updateTimelineItem(timelineItem, {
+        activityId: null,
+        activitySeconds: 0
+      })
+    )
 }
 
 export function getTotalActivitySeconds(activity) {
   return timelineItems.value
-    .filter((timelineItem) => timelineItem.activityId === activity.id)
+    .filter((timelineItem) => hasActivity(timelineItem,activity))
     .reduce(
       (totalSeconds, timelineItem) => Math.round(timelineItem.activitySeconds + totalSeconds),
       0
     )
 }
-  
 
-export function generateTimelineItems() {
+function hasActivity (timelineItem, activity) {
+  return timelineItem.activityId === activity.id
+}
+
+function generateTimelineItems() {
   return [...Array(HOURS_IN_DAY).keys()].map((hour) => ({
     hour,
     activityId: [0, 1, 2, 3, 4].includes(hour) ? activities.value[hour % 3].id : null,

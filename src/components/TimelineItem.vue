@@ -1,9 +1,6 @@
 <script setup>
-import {
-  isTimelineItemValid,
-  isUndefined,
-} from '@/validators'
-import { setTimelineItemActivity } from '../timelineitems'
+import { isTimelineItemValid, isUndefined } from '@/validators'
+import { updateTimelineItem } from '../timelineitems'
 import { activitySelectOptions } from '../activities'
 import BaseSelect from './BaseSelect.vue'
 import TimelineHour from './TimelineHour.vue'
@@ -18,9 +15,8 @@ defineProps({
 })
 
 const emit = defineEmits({
-  scrollToHour: isUndefined,
+  scrollToHour: isUndefined
 })
-
 </script>
 
 <template>
@@ -33,10 +29,8 @@ const emit = defineEmits({
       :selected="timelineItem.activityId"
       :options="activitySelectOptions"
       placeholder="Rest"
-      @select="setTimelineItemActivity(timelineItem, $event)"
+      @select="updateTimelineItem(timelineItem, { activityId: $event })"
     />
-    <TimelineStopwatch
-      :timeline-item="timelineItem"
-    />
+    <TimelineStopwatch :timeline-item="timelineItem" />
   </li>
 </template>
