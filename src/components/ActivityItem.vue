@@ -18,7 +18,7 @@ defineProps({
 
 function deleteAndResetActivity (activity) {
   resetTimelineItemActivities(activity)
-  deleteActivity()
+  deleteActivity(activity)
 }
 </script>
 
