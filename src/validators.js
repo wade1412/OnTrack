@@ -80,6 +80,6 @@ function isBetween(value, start, end) {
   return value >= start && value <= end
 }
 
-function isNotEmptyString(value) {
+export function isNotEmptyString(value) {
   return isString(value) && value.length > 0
 }
