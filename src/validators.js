@@ -76,10 +76,10 @@ function isString(value) {
   return typeof value === 'string'
 }
 
-function isBetween(value, start, end) {
-  return value >= start && value <= end
+function isNotEmptyString(value) {
+  return isString(value) && value.length > 0
 }
 
-export function isNotEmptyString(value) {
-  return isString(value) && value.length > 0
+function isBetween(value, start, end) {
+  return value >= start && value <= end
 }
