@@ -1,7 +1,6 @@
 import { id } from './functions'
 import { computed, ref } from 'vue'
 import { SECONDS_IN_HOUR, HUNDRED_PERCENT } from './constants'
-import { getTotalActivitySeconds } from './timelineitems'
 
 export const activities = ref(generateActivities())
 
@@ -27,10 +26,8 @@ export function setActivitySecondsToComplete(activity, secondsToComplete) {
   activity.secondsToComplete = secondsToComplete || 0
 }
 
-export function getActivityProgress(activity) {
-  return Math.floor(
-    (getTotalActivitySeconds(activity) * HUNDRED_PERCENT) / activity.secondsToComplete
-  )
+export function calculateActivityCompletionPercentage({secondsToComplete}, trackedSeconds) {
+  return Math.floor((trackedSeconds * HUNDRED_PERCENT) / secondsToComplete)
 }
 
 function generateActivities() {
