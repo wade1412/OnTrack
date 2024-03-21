@@ -1,8 +1,11 @@
 <script setup>
+import { computed } from 'vue'
+import { getActivityProgress } from '../activities'
+
 const props = defineProps(['index', 'activity'])
 
 const color = ['red', 'yellow', 'blue', 'green'][props.index]
-const progress = [10, 50, 70, 100][props.index]
+const progress = computed(() => getActivityProgress(props.activity))
 const timeProgress = ['03:00/30:00', '15:00/30:00', '21:00/30:00', '30:00/30:00'][props.index]
 </script>
 
@@ -13,7 +16,7 @@ const timeProgress = ['03:00/30:00', '15:00/30:00', '21:00/30:00', '30:00/30:00'
       <div :class="`bg-${color}-500`" :style="`width: ${progress}%`" />
     </div>
     <div class="flex justify-between font-mono text-sm">
-      <span>{{ progress }}</span>
+      <span>{{ progress }}%</span>
       <span>{{ timeProgress }}</span>
     </div>
   </li>
