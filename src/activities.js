@@ -1,8 +1,12 @@
 import { id } from './functions'
 import { computed, ref } from 'vue'
-import {SECONDS_IN_HOUR } from './constants'
+import { SECONDS_IN_HOUR } from './constants'
 
 export const activities = ref(generateActivities())
+
+export const trackedActivities = computed(() =>
+  activities.value.filter(({ secondsToComplete }) => secondsToComplete)
+)
 
 export const activitySelectOptions = computed(() => generateActivitySelectOptions(activities.value))
 
