@@ -10,13 +10,13 @@ export const NAV_ITEMS = [
     page: PAGE_TIMELINE,
     icon: ICON_CLOCK
   },
-  { 
-    page: PAGE_ACTIVITIES, 
+  {
+    page: PAGE_ACTIVITIES,
     icon: ICON_LIST_BULLET
   },
-  { 
-    page: PAGE_PROGRESS, 
-    icon: ICON_CHART_BAR 
+  {
+    page: PAGE_PROGRESS,
+    icon: ICON_CHART_BAR
   }
 ]
 
@@ -36,10 +36,11 @@ export const BUTTON_TYPES = [
 
 export const MINUTES_IN_HOUR = 60
 export const SECONDS_IN_MINUTE = 60
-export const SECONDS_IN_HOUR = MINUTES_IN_HOUR * SECONDS_IN_MINUTE
 export const MILLISECONDS_IN_SECOND = 1000
 export const HOURS_IN_DAY = 24
 export const MIDNIGHT_HOUR = 0
+export const SECONDS_IN_HOUR = MINUTES_IN_HOUR * SECONDS_IN_MINUTE
+export const SECONDS_IN_DAY = SECONDS_IN_HOUR * HOURS_IN_DAY
 
 export const PERIOD_SELECT_OPTIONS = generatePeriodSelectOptions()
 
