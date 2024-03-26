@@ -22,7 +22,7 @@ const props = defineProps({
 const { seconds, isRunning, start, stop, reset } = useStopwatch(props.timelineItem.activitySeconds)
 
 watchEffect(() => {
-  if (props.timelineItem.hour !== now.value() && isRunning.value) {
+  if (props.timelineItem.hour !== now.value.getHours() && isRunning.value) {
     stop ()
   }
 })
