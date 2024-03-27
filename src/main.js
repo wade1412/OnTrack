@@ -6,10 +6,10 @@ import { createApp } from 'vue'
 import { timelineItems } from './timelineitems'
 import { activities } from './activities'
 
+loadState()
+
 document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'hidden') {
-    saveState()
-  }
+  document.visibilityState === 'visible' ? loadState() : saveState()
 })
 
 function saveState() {
@@ -17,6 +17,13 @@ function saveState() {
     timelineItems: timelineItems.value,
     activities: activities.value
   })
+}
+
+function loadState() {
+  const state = Storage.load()
+
+  timelineItems.value = state.timelineItems
+  activities.value = state.activities
 }
 
 createApp(App).mount('#app')
