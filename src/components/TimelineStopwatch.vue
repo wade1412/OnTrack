@@ -22,7 +22,7 @@ const { seconds, isRunning, start, stop, reset } = useStopwatch(props.timelineIt
 
 onMounted(() => {
   if (props.timelineItem.isActive) {
-    start
+    start()
   }
 })
 
