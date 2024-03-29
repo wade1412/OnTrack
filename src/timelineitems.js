@@ -45,6 +45,7 @@ function generateTimelineItems() {
   return [...Array(HOURS_IN_DAY).keys()].map((hour) => ({
     hour,
     activityId: null, //[0, 1, 2, 3, 4].includes(hour) ? activities.value[hour % 3].id : null,
-    activitySeconds: 0 //[0, 1, 2, 3, 4].includes(hour) ? hour * 600 : 0
+    activitySeconds: 0, //[0, 1, 2, 3, 4].includes(hour) ? hour * 600 : 0
+    isActive: false
   }))
 }
