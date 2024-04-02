@@ -3,7 +3,8 @@ import './assets/main.css'
 import App from './App.vue'
 import { loadState, saveState } from './storage'
 import { createApp } from 'vue'
-import { activeTimelineItem, startTimelineItemTimer} from './timelineitems'
+import { activeTimelineItem } from './timelineitems'
+import { startTimelineItemTimer} from './timelineitem-timer'
 
 loadState()
 
