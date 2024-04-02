@@ -3,14 +3,12 @@ import './assets/main.css'
 import App from './App.vue'
 import { loadState, saveState } from './storage'
 import { createApp } from 'vue'
-import { startTimelineItemTimer, findActiveTimelineItem } from './timelineitems'
+import { activeTimelineItem, startTimelineItemTimer} from './timelineitems'
 
 loadState()
 
-const activeTimelineItem = findActiveTimelineItem()
-
-if (activeTimelineItem) {
-  startTimelineItemTimer(activeTimelineItem)
+if (activeTimelineItem.value) {
+  startTimelineItemTimer(activeTimelineItem.value)
 }
 
 document.addEventListener('visibilitychange', () =>
