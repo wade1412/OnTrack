@@ -1,12 +1,28 @@
 import { ref, computed } from 'vue'
 import { HOURS_IN_DAY, MIDNIGHT_HOUR } from './constants'
-import { now } from './time'
+import { endOfHour, isToday, toSeconds, today, now } from './time'
 
-export const timelineItems = ref(generateTimelineItems())
+export const timelineItems = ref([])
+
 export const timelineItemRefs = ref([])
+
 export const activeTimelineItem = computed(() =>
   timelineItems.value.find(({ isActive }) => isActive)
 )
+
+export function intializeTimelineItems(state) {
+  const lastActiveAt = new Date(state.lastActiveAt)
+
+  timelineItems.value = state.timelineItems ?? generateTimelineItems()
+
+  if (activeTimelineItem.value && isToday(lastActiveAt)) {
+    timelineItems.value = syncIdleSeconds(state.timelineItems, lastActiveAt)
+  } else if (state.timelineItems && !isToday(lastActiveAt)) {
+    timelineItems.value = resetTimelineItems(state.timelineItems)
+  }
+}
+
+
 
 export function updateTimelineItem(timelineItem, fields) {
   return Object.assign(timelineItem, fields)
@@ -27,7 +43,7 @@ export function calculateTrackedActivitySeconds(timelineItems, activity) {
     .reduce((total, seconds) => Math.round(total + seconds), 0)
 }
 
-export function resetTimelineItems (timelineItems) {
+export function resetTimelineItems(timelineItems) {
   return timelineItems.map((timelineItem) => ({
     ...timelineItem,
     activitySeconds: 0,
@@ -59,4 +75,18 @@ function generateTimelineItems() {
     activitySeconds: 0,
     isActive: false
   }))
+}
+
+function syncIdleSeconds(timelineItems, lastActiveAt) {
+  const activeTimelineItem = timelineItems.find(({ isActive }) => isActive)
+  if (activeTimelineItem) {
+    activeTimelineItem.activitySecondsToComplete += calcualteIdleSeconds(lastActiveAt)
+  }
+  return timelineItems
+}
+
+function calcualteIdleSeconds(lastActiveAt) {
+  return lastActiveAt.getHours() === today().getHours()
+    ? toSeconds(today() - lastActiveAt)
+    : toSeconds(endOfHour(lastActiveAt) - lastActiveAt)
 }

@@ -11,6 +11,10 @@ export const trackedActivities = computed(() =>
 
 export const activitySelectOptions = computed(() => generateActivitySelectOptions(activities.value))
 
+export function intializeActivities(state) {
+  activities.value = state.activities || []
+}
+
 export function createActivity(activity) {
   activities.value.push(activity)
 }
