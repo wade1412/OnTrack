@@ -16,13 +16,11 @@ export function intializeTimelineItems(state) {
   timelineItems.value = state.timelineItems ?? generateTimelineItems()
 
   if (activeTimelineItem.value && isToday(lastActiveAt)) {
-    timelineItems.value = syncIdleSeconds(state.timelineItems, lastActiveAt)
+    syncIdleSeconds(lastActiveAt)
   } else if (state.timelineItems && !isToday(lastActiveAt)) {
-    timelineItems.value = resetTimelineItems(state.timelineItems)
+    resetTimelineItems()
   }
 }
-
-
 
 export function updateTimelineItem(timelineItem, fields) {
   return Object.assign(timelineItem, fields)
@@ -43,13 +41,7 @@ export function calculateTrackedActivitySeconds(timelineItems, activity) {
     .reduce((total, seconds) => Math.round(total + seconds), 0)
 }
 
-export function resetTimelineItems(timelineItems) {
-  return timelineItems.map((timelineItem) => ({
-    ...timelineItem,
-    activitySeconds: 0,
-    isActive: false
-  }))
-}
+
 
 export function scrollToCurrentHour(isSmooth = false) {
   scrollToHour(now.value.getHours(), isSmooth)
@@ -77,15 +69,21 @@ function generateTimelineItems() {
   }))
 }
 
-function syncIdleSeconds(timelineItems, lastActiveAt) {
-  const activeTimelineItem = timelineItems.find(({ isActive }) => isActive)
-  if (activeTimelineItem) {
-    activeTimelineItem.activitySecondsToComplete += calcualteIdleSeconds(lastActiveAt)
-  }
-  return timelineItems
+function resetTimelineItems() {
+  return timelineItems.value.forEach((timelineItem) => 
+  updateTimelineItem(timelineItem, {
+    activitySeconds: 0,
+    isActive: false
+  }))
 }
 
-function calcualteIdleSeconds(lastActiveAt) {
+function syncIdleSeconds(timelineItems, lastActiveAt) {
+  updateTimelineItem(activeTimelineItem.value, {
+    activitySeconds: activeTimelineItem.value + calculateIdleSeconds(lastActiveAt)
+  })
+}
+
+function calculateIdleSeconds(lastActiveAt) {
   return lastActiveAt.getHours() === today().getHours()
     ? toSeconds(today() - lastActiveAt)
     : toSeconds(endOfHour(lastActiveAt) - lastActiveAt)
