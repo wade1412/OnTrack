@@ -3,8 +3,6 @@ import { HUNDRED_PERCENT } from './constants'
 
 export const activities = ref([])
 
-
-
 export const trackedActivities = computed(() =>
   activities.value.filter(({ secondsToComplete }) => secondsToComplete)
 )
@@ -31,14 +29,13 @@ export function setActivitySecondsToComplete(activity, secondsToComplete) {
   activity.secondsToComplete = secondsToComplete || 0
 }
 
-export function calculateActivityCompletionPercentage({secondsToComplete}, trackedSeconds) {
+export function calculateActivityCompletionPercentage({ secondsToComplete }, trackedSeconds) {
   return Math.floor((trackedSeconds * HUNDRED_PERCENT) / secondsToComplete)
 }
 
-export function calculateCompletionPercentage (totalTrackedSeconds) {
+export function calculateCompletionPercentage(totalTrackedSeconds) {
   return Math.floor((totalTrackedSeconds * HUNDRED_PERCENT) / totalActivitySecondsToComplete.value)
 }
-
 
 function generateActivitySelectOptions(activities) {
   return activities.map((activity) => ({ value: activity.id, label: activity.name }))
@@ -46,6 +43,6 @@ function generateActivitySelectOptions(activities) {
 
 const totalActivitySecondsToComplete = computed(() => {
   return trackedActivities.value
-    .map(({secondsToComplete}) => secondsToComplete)
-    .reduce((total, seconds)=> total + seconds, 0)
+    .map(({ secondsToComplete }) => secondsToComplete)
+    .reduce((total, seconds) => total + seconds, 0)
 })

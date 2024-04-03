@@ -6,7 +6,6 @@ import { PAGE_TIMELINE } from '@/constants'
 import { scrollToCurrentHour } from '@/timelineitems'
 import BaseIcon from './BaseIcon.vue'
 
-
 const props = defineProps({
   navItem: {
     required: true,
