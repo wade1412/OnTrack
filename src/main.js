@@ -1,9 +1,9 @@
-import './assets/main.css'
-
-import App from './App.vue'
-import { syncState } from './storage'
 import { createApp } from 'vue'
+import { syncState } from './storage'
 import { startCurrentDateTimer } from './time'
+import App from './App.vue'
+
+import './assets/main.css'
 
 syncState()
 

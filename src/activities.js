@@ -9,7 +9,7 @@ export const trackedActivities = computed(() =>
 
 export const activitySelectOptions = computed(() => generateActivitySelectOptions(activities.value))
 
-export function intializeActivities(state) {
+export function initializeActivities(state) {
   activities.value = state.activities || []
 }
 

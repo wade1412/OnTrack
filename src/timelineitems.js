@@ -21,7 +21,7 @@ watch(now, (after, before) => {
   }
 })
 
-export function intializeTimelineItems(state) {
+export function initializeTimelineItems(state) {
   const lastActiveAt = new Date(state.lastActiveAt)
 
   timelineItems.value = state.timelineItems ?? generateTimelineItems()
