@@ -37,9 +37,7 @@ export const secondsSinceMidnightInPercentage = computed(
 )
 
 export function startCurrentDateTimer() {
-  setInterval(() => {
-    ;(now.value = new Date(now.value.getTime() + MILLISECONDS_IN_SECOND)), MILLISECONDS_IN_SECOND
-  })
+  setInterval(() => (now.value = today()), MILLISECONDS_IN_SECOND)
 }
 
 export function endOfHour(date) {
